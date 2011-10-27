@@ -4,12 +4,13 @@ require 'salesforce/configuration'
 
 module Salesforce #:nodoc
   extend self
+  @configuration = Configuration.new
 
   def configure
-    block_given? ? yield(Configuration) : Configuration
+    block_given? ? yield(configuration) : configuration
   end
 
   def configuration
-    @configuration ||= Configuration.new
+    @configuration
   end
 end

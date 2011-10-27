@@ -5,6 +5,7 @@ def run(cmd)
 end
 
 def spec(file)
+  run("clear")
   if File.exists?(file)
     run("rspec --fail-fast #{file}")
   else
@@ -16,6 +17,8 @@ watch("spec/.*/*_spec\.rb") do |match|
   puts(match[0])
   spec(match[0])
 end
+
+watch ("lib/salesforce.rb") { spec("spec/unit/salesforce_spec.rb") }
 
 watch("lib/(.*/.*)\.rb") do |match|
   puts(match[1])
