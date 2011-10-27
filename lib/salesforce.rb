@@ -1,16 +1,19 @@
 # encoding: utf-8
 
 require 'salesforce/configuration'
+require 'salesforce/connection'
 
 module Salesforce #:nodoc
-  extend self
-  @configuration = Configuration.new
 
-  def configure
+  attr_reader :configuration
+
+  SF_API_VERSION = "v22.0"
+
+  def self.configure
     block_given? ? yield(configuration) : configuration
   end
 
-  def configuration
-    @configuration
+  def self.configuration
+    @configuration ||= Configuration.new
   end
 end

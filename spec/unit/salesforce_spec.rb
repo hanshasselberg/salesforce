@@ -16,12 +16,13 @@ describe 'Salesforce' do
 
       it "sets configuration values" do
         Salesforce.configure do |config|
-          config.user = 'test@test.de'
+          config.username = 'test@test.de'
         end
-        Salesforce.configuration.user.should eq('test@test.de')
+        Salesforce.configuration.username.should eq('test@test.de')
       end
 
     end
 
   end
+
 end

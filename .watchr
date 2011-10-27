@@ -23,6 +23,6 @@ watch ("lib/salesforce.rb") { spec("spec/unit/salesforce_spec.rb") }
 watch("lib/(.*/.*)\.rb") do |match|
   puts(match[1])
   spec("spec/unit/#{match[1]}_spec.rb")
-  spec("spec/functional/#{match[1]}_spec.rb")
+  # spec("spec/functional/#{match[1]}_spec.rb")
 end
 
