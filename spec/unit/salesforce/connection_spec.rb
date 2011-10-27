@@ -7,7 +7,7 @@ describe Salesforce::Connection do
   describe '.reset' do
 
     it 'removes previous cached response' do
-      connection.instance_variable_set :@response, true
+      connection.instance_variable_set(:@response, true)
       connection.reset
       connection.instance_variable_get(:@response).should eq(nil)
     end

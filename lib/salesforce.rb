@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require 'typhoeus'
 require 'salesforce/configuration'
 require 'salesforce/connection'
 

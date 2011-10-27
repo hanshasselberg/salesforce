@@ -35,14 +35,20 @@ module Salesforce
 
     def request_credentials
       response = Typhoeus::Request.post(
-        Salesforce.configuration.access_token_url, :query => credentials)
+        Salesforce.configuration.access_token_url,
+        :query => credentials
+      )
+      puts response.inspect
 
       raise "Couldn't request token" unless response.code == 200
 
       essentials = ['instance_url', 'access_token']
-      url_and_token = response.keep_if { |key, value| essentials.include? key }
+      url_and_token = response.keep_if { |key, value|
+        essentials.include? key
+      }
 
-      # Salesforce doesn't seems to like requests straight after a token request
+      # Salesforce doesn't seems to like requests straight
+      # after a token request
       sleep 3
 
       url_and_token
