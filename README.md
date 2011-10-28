@@ -22,7 +22,7 @@ Mark classes.
      # with custom mapping
      #
      class Account
-       include Salesforce::Object
+       include Salesforce::SObject
        field :umsatz2__c, :as => revenue # mapping
      end
 
