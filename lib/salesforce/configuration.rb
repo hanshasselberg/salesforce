@@ -68,8 +68,8 @@ module Salesforce
     def request_credentials
       response = ask_salesforce
 
-      raise NoAccessTokenError.new(response.body) unless response.code == 200
       body = JSON.parse(response.body)
+      raise SalesforceError.new("#{body['error']}: #{body['error_description']}") unless response.code == 200
       # FIXME
       # Salesforce doesn't seems to like requests straight
       # after a token request

@@ -6,6 +6,12 @@ require 'salesforce/configuration'
 
 module Salesforce #:nodoc
 
+  class SalesforceError < StandardError
+    def initialize(message)
+      super(message)
+    end
+  end
+
   attr_reader :configuration
 
   SF_API_VERSION = "v22.0"
