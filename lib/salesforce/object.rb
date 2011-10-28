@@ -1,8 +1,15 @@
 module Salesforce
   module SObject
 
-    def ==(other)
-      self.class == other.class && id == other.id
+    module ClassMethods
+    end
+
+    module InstanceMethods
+    end
+
+    def self.included(klass)
+      klass.extend ClassMethods
+      klass.send :include, InstanceMethods
     end
 
   end

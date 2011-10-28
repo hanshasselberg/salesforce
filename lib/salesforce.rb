@@ -3,7 +3,7 @@
 require 'typhoeus'
 require 'json'
 require 'salesforce/configuration'
-require 'salesforce/object'
+require 'salesforce/sobject'
 
 module Salesforce #:nodoc
 
