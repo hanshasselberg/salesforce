@@ -8,8 +8,8 @@ describe Salesforce::SObject do
 
     context 'give a valid id' do
 
-      it 'returns finds an object' do
-        klass.where(:id => '123').should_not be_empty
+      it 'finds an object' do
+        klass.where(:id => '123').should include(klass)
       end
 
     end

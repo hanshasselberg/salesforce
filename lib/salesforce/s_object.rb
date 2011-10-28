@@ -2,6 +2,11 @@ module Salesforce
   module SObject
 
     module ClassMethods
+
+      def where(options = {})
+        [1]
+      end
+
     end
 
     module InstanceMethods
