@@ -70,6 +70,7 @@ module Salesforce
 
       raise "Couldn't request token" unless response.code == 200
       body = JSON.parse(response.body)
+      # FIXME
       # Salesforce doesn't seems to like requests straight
       # after a token request
       # sleep 3

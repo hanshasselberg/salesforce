@@ -9,36 +9,32 @@ describe Salesforce::Configuration do
     it 'removes previous cached response' do
       configuration.instance_variable_set(:@response, true)
       configuration.reset
-      configuration.instance_variable_get(:@response).should eq(nil)
+      configuration.instance_variable_get(:@response).should == nil
     end
 
   end
 
   describe 'salesforce interaction' do
 
-    let(:body) {
-      "{\"instance_url\":\"https://na12.salesforce.com\","+
-      "\"access_token\":\"0RRR67FzynBSJI1lxuHomrSWgXe9\"}"
-    }
-    let(:response) { Typhoeus::Response.new(:code => 200, :body => body) }
-
-    before :all do
-      Typhoeus::Hydra.new.stub(:post, configuration.access_token_url).and_return(response)
-    end
-
     describe '.ask_salesforce' do
 
       context 'given valid credentials' do
 
-        it 'succeeds' do
-          configuration.send(:ask_salesforce).success?.should be_true
-        end
+        specify{ configuration.send(:ask_salesforce).should be_success }
 
       end
 
     end
 
     describe '.request_credentials' do
+
+      let(:response) { Typhoeus::Response.new(
+        :code => 200,
+        :body => "{\"instance_url\":\"a\",\"access_token\":\"b\"}")
+      }
+      before :each do
+        configuration.stub(:ask_salesforce).and_return(response)
+      end
 
       it 'stores access token' do
         configuration.access_token.should be
