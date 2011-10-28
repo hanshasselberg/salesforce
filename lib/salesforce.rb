@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 require 'typhoeus'
+require 'json'
 require 'salesforce/configuration'
-require 'salesforce/connection'
 
 module Salesforce #:nodoc
 
