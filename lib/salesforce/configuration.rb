@@ -1,7 +1,7 @@
 module Salesforce
   class Configuration
 
-    attr_accessor :username, :password, :token, :client_id, :client_secret
+    attr_accessor :username, :password, :client_id, :client_secret
     attr_reader :access_token_url, :grant_type, :service_path
 
     def initialize
@@ -68,7 +68,7 @@ module Salesforce
     def request_credentials
       response = ask_salesforce
 
-      raise "Couldn't request token" unless response.code == 200
+      raise NoAccessTokenError.new(response.body) unless response.code == 200
       body = JSON.parse(response.body)
       # FIXME
       # Salesforce doesn't seems to like requests straight
