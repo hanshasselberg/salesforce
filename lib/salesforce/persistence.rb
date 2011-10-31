@@ -5,7 +5,7 @@ module Salesforce
     module ClassMethods
 
       def find(id)
-        request(id)
+        request_object(id)
       end
 
     end

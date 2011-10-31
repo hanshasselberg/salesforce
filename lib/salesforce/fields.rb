@@ -4,13 +4,13 @@ module Salesforce
 
     module ClassMethods
 
-      def discover
-        return if Salesforce.configuration.disable_discover
+      def discovery
+        return if Salesforce.configuration.disable_discovery
+
+        fields = self.request_description["fields"]
       end
 
-      def describe
-
-      end
     end
+
   end
 end

@@ -2,6 +2,7 @@ module Salesforce
   module SObject
     extend ActiveSupport::Concern
     include Salesforce::Persistence
+    include Salesforce::Connection
 
     module ClassMethods
 
@@ -24,7 +25,7 @@ module Salesforce
               next if value.nil? || value == ''
               method_name = "#{name.downcase}"
               value = value[0..-4] if method_name == 'Id'
-              p "#{method_name}: #{value}"
+              # p "#{method_name}: #{value}"
               define_method method_name do
                 return value
               end

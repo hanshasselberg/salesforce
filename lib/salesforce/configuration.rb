@@ -1,7 +1,7 @@
 module Salesforce
   class Configuration
 
-    attr_accessor :username, :password, :client_id, :client_secret
+    attr_accessor :username, :password, :client_id, :client_secret, :disable_discovery
     attr_reader :access_token_url, :grant_type, :service_path, :access_token, :instance_url
 
     def initialize

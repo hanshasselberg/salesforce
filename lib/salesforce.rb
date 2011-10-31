@@ -5,6 +5,7 @@ require 'json'
 require 'active_support/concern'
 
 require 'salesforce/configuration'
+require 'salesforce/connection'
 require 'salesforce/fields'
 require 'salesforce/persistence'
 require 'salesforce/s_object'
