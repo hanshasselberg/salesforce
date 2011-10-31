@@ -1,5 +1,9 @@
 # Overview
 
+This gem is currently developed! Nothing works as expected and there's a lot missing.
+Usage description is more a vision than reality! Feel free to make pull requests, they are
+very welcome!
+
 ## About Salesforce
 
 Salesforce is a gem to access Salesforce Rest API.
@@ -33,3 +37,4 @@ Mark classes.
        include Salesforce::Object
        stored_in :Product__c
      end
+

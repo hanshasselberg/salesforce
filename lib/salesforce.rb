@@ -3,8 +3,10 @@
 require 'typhoeus'
 require 'json'
 require 'active_support/concern'
-require 'salesforce/persistence'
+
 require 'salesforce/configuration'
+require 'salesforce/fields'
+require 'salesforce/persistence'
 require 'salesforce/s_object'
 
 module Salesforce #:nodoc

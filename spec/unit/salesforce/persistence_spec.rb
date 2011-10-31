@@ -33,11 +33,19 @@ describe Salesforce::SObject do
     context 'given a valid id' do
 
       it 'finds a sobject' do
-        account.should be_a(Account)
+        if ENV['SF_USERNAME']
+          account.should be_a(Account)
+        else
+          pending 'ENV credentials missing.'
+        end
       end
 
       it 'finds a sobject with correct id' do
-        account.id.should == id
+        if ENV['SF_USERNAME']
+          account.id.should == id
+        else
+          pending 'ENV credentials missing.'
+        end
       end
 
     end

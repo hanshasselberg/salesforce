@@ -26,19 +26,4 @@ describe Salesforce::SObject do
 
   end
 
-  describe '.find' do
-
-    let(:id) { '001U0000005cy3y' }
-
-    context 'given a valid id' do
-
-      it 'finds a sobject' do
-        a = Account.find(id)
-        a.should be_a(Account)
-      end
-
-    end
-
-  end
-
 end
