@@ -5,10 +5,7 @@ module Salesforce
     module ClassMethods
 
       def find(id)
-        response = request(object_url(id))
-        body = JSON.parse(response.body).first
-        raise SalesforceError.new("#{body['errorCode']}: #{body['message']}") unless response.code == 200
-        response
+        request(id)
       end
 
       private
@@ -17,7 +14,16 @@ module Salesforce
         Salesforce.configuration.service_url + "/sobjects/#{self.type}/#{id}"
       end
 
-      def request(url)
+      def request(id)
+        response = request_data(object_url(id))
+        body = JSON.parse(response.body)
+        unless response.code == 200
+          raise SalesforceError.new("#{body.first['errorCode']}: #{body.first['message']}")
+        end
+        Account.new(body)
+      end
+
+      def request_data(url)
         Typhoeus::Request.get(
           url,
           :headers => headers

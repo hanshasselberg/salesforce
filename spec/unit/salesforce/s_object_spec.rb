@@ -26,10 +26,6 @@ describe Salesforce::SObject do
 
   end
 
-  describe 'create' do
-
-  end
-
   describe '.find' do
 
     let(:id) { '001U0000005cy3y' }
@@ -38,7 +34,7 @@ describe Salesforce::SObject do
 
       it 'finds a sobject' do
         a = Account.find(id)
-        a.should be
+        a.should be_a(Account)
       end
 
     end
