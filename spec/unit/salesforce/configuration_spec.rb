@@ -20,7 +20,13 @@ describe Salesforce::Configuration do
 
       context 'given valid credentials' do
 
-        specify{ configuration.send(:ask_salesforce).should be_success }
+        specify do
+          if ENV['SF_USERNAME']
+            configuration.send(:ask_salesforce).should be_success
+          else
+            pending 'ENV credentials missing.'
+          end
+        end
 
       end
 
