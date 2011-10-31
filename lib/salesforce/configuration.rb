@@ -2,7 +2,7 @@ module Salesforce
   class Configuration
 
     attr_accessor :username, :password, :client_id, :client_secret
-    attr_reader :access_token_url, :grant_type, :service_path
+    attr_reader :access_token_url, :grant_type, :service_path, :access_token, :instance_url
 
     def initialize
       @access_token_url = 'https://login.salesforce.com/services/oauth2/token'
@@ -27,11 +27,13 @@ module Salesforce
     end
 
     def access_token
-      response['access_token']
+      ask_salesforce unless @access_token
+      @access_token
     end
 
     def instance_url
-      response['instance_url']
+      ask_salesforce unless @instance_url
+      @instance_url
     end
 
     def service_url
@@ -42,11 +44,11 @@ module Salesforce
       @response = nil
     end
 
-    private
-
     def response
-      @response ||= request_credentials
+      @response ||= ask_salesforce
     end
+
+    private
 
     def credentials
       {
@@ -59,25 +61,15 @@ module Salesforce
     end
 
     def ask_salesforce
-      Typhoeus::Request.post(
+      @response = Typhoeus::Request.post(
         access_token_url,
         :params => credentials
       )
-    end
-
-    def request_credentials
-      response = ask_salesforce
-
       body = JSON.parse(response.body)
-      raise SalesforceError.new("#{body['error']}: #{body['error_description']}") unless response.code == 200
-      # FIXME
-      # Salesforce doesn't seems to like requests straight
-      # after a token request
-      # sleep 3
-
-      body.keep_if { |key, value|
-        ['instance_url', 'access_token'].include? key
-      }
+      raise SalesforceError.new("#{body['error']}: #{body['error_description']}") if @response.code != 200
+      @access_token = body['access_token']
+      @instance_url = body['instance_url']
+      @response
     end
   end
 end

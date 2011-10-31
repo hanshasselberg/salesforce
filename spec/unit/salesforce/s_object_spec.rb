@@ -6,7 +6,7 @@ describe Salesforce::SObject do
 
   describe '.type' do
 
-    specify { Account.type.should == 'sfAccount'}
+    specify { Account.type.should == 'Account'}
 
   end
 
@@ -26,13 +26,19 @@ describe Salesforce::SObject do
 
   end
 
-  describe '.where' do
+  describe 'create' do
+
+  end
+
+  describe '.find' do
+
+    let(:id) { '001U0000005cy3y' }
 
     context 'given a valid id' do
 
-      it 'finds an sobject' do
-        pending
-        klass.where(:id => '123').should include(klass)
+      it 'finds a sobject' do
+        a = Account.find(id)
+        a.should be
       end
 
     end

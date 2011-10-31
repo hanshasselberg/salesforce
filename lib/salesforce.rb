@@ -2,6 +2,8 @@
 
 require 'typhoeus'
 require 'json'
+require 'active_support/concern'
+require 'salesforce/persistence'
 require 'salesforce/configuration'
 require 'salesforce/s_object'
 

@@ -8,10 +8,5 @@ require 'salesforce'
 
 Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
 
-Salesforce.configure do |config|
-  config.username = 'hans.hasselberg@googmail.com'
-
-end
-
 RSpec.configure do |config|
 end
