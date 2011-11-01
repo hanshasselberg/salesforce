@@ -8,6 +8,7 @@ require 'salesforce/configuration'
 require 'salesforce/connection'
 require 'salesforce/fields'
 require 'salesforce/persistence'
+require 'salesforce/attributes'
 require 'salesforce/s_object'
 
 module Salesforce #:nodoc
