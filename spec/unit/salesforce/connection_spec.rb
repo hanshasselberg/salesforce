@@ -1,51 +1,19 @@
 require 'spec_helper'
 
-describe Salesforce::SObject do
+describe Salesforce::Connection do
 
-  describe '#initialize' do
+  let(:klass) { Account }
 
-    context 'given salesforce like hash' do
+  describe '.object_url' do
 
-      let(:attributes) do
-        {
-          "attributes"=>{"type"=>"Account", "url"=>"/services/data/v22.0/sobjects/Account/001U0000005cy3yIAA"},
-          "Id"=>"001U0000005cy3yIAA", "Name"=>"Test1", "Website"=>"www.web.de", "OwnerId"=>"005U0000000IhuFIAS",
-          "CreatedDate"=>"2011-10-27T14:45:41.000+0000", "CreatedById"=>"005U0000000IhuFIAS",
-          "LastModifiedDate"=>"2011-10-27T14:45:41.000+0000", "LastModifiedById"=>"005U0000000IhuFIAS",
-          "SystemModstamp"=>"2011-10-27T14:45:41.000+0000", "LastActivityDate"=>nil
-        }
-      end
-      let(:account) { Account.new(attributes) }
+    context 'given an id' do
+      let(:service_url) { "http://service.url" }
 
-      it 'sets id' do
-        account.id.should == attributes['Id']
-      end
+      specify do
+        Salesforce.configuration.stub(:service_url){ service_url }
+        result_url = service_url+"/sobjects/#{Account.type}/123"
 
-    end
-
-  end
-
-  describe '.find' do
-
-    let(:id) { '001U0000005cy3y' }
-    let(:account) { Account.find(id) }
-
-    context 'given a valid id' do
-
-      it 'finds a sobject' do
-        if ENV['SF_USERNAME']
-          account.should be_a(Account)
-        else
-          pending 'ENV credentials missing.'
-        end
-      end
-
-      it 'finds a sobject with correct id' do
-        if ENV['SF_USERNAME']
-          account.id.should == id
-        else
-          pending 'ENV credentials missing.'
-        end
+        Account.send(:object_url, '123').should == result_url
       end
 
     end

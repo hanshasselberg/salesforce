@@ -24,14 +24,26 @@ describe Salesforce::Fields do
 
   describe '.field' do
 
-    before { klass.field(:identifier) }
+    let!(:name) { :identifier }
+    before { klass.field(name) }
+
+    it "adds to fields" do
+      klass.fields.should include(name.to_s)
+    end
 
     it 'creates a getter' do
-      klass.new.should respond_to(:identifier)
+      klass.new.should respond_to(name)
     end
 
     it 'creates a setter' do
-      klass.new.should respond_to(:identifier=)
+      klass.new.should respond_to("#{name}=")
+    end
+
+    it 'returns assigned value' do
+      klass.new.tap do |o|
+        o.send "#{name}=", 42
+        o.send(name).should == 42
+      end
     end
 
   end

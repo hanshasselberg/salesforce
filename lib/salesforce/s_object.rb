@@ -18,17 +18,14 @@ module Salesforce
     module InstanceMethods
 
       def initialize(attrs = {})
-        unless !attrs.nil? && !attrs['attributes'].nil? && attrs['attributes']['type']==self.class.type
-          return SalesforceError("something is wrong!")
-        end
-        if attrs['attributes'] != nil
-            attrs.each do |name, value|
-              next if name == 'attributes'
-              next if value.nil? || value == ''
-              method_name = "#{name.downcase}"
-              value = value[0..-4] if method_name == 'Id'
-              send("#{method_name}=", value)
-            end
+        if attrs && attrs['attributes'] != nil
+          attrs.each do |name, value|
+            next if name == 'attributes'
+            next if value.nil? || value == ''
+            method_name = "#{name.downcase}"
+            value = value[0..-4] if method_name == 'Id'
+            send("#{method_name}=", value)
+          end
         end
       end
 
