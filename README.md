@@ -27,7 +27,7 @@ Mark classes.
      #
      class Account
        include Salesforce::SObject
-       field :umsatz2__c, :as => revenue # mapping
+       alias :umsatz2__c :as => revenue # mapping
      end
 
      # app/models/product.rb
