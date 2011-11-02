@@ -1,10 +1,11 @@
+require "salesforce/attributes/processing"
+
 module Salesforce
   module Attributes
     extend ActiveSupport::Concern
+    include Processing
 
-    def attributes
-      @attributes ||= {}
-    end
+    attr_reader :attributes
     alias :raw_attributes :attributes
 
     def read_attribute(name)
