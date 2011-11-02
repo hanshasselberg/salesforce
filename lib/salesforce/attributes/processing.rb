@@ -14,6 +14,7 @@ module Salesforce
       protected
 
       def process_attribute(name, value)
+        value = fix_data_type(value)
         send("#{name}=", value)
       end
 
@@ -21,10 +22,21 @@ module Salesforce
         Hash.new.tap do |new_attrs|
           attrs.each do |name, value|
             next if name == 'attributes'
-            p name.to_s.underscore
             new_attrs[name.to_s.underscore] = value
           end
         end
+      end
+
+      def fix_data_type(input)
+        if input =~ /^\d{4}-\d{2}-\d{2}/
+          input = DateTime.parse(input)
+        end
+
+        if input.kind_of?(Date) || input.kind_of?(DateTime)
+          input = input.to_time.utc
+        end
+
+        input
       end
 
     end

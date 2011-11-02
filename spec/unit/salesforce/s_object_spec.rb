@@ -16,6 +16,7 @@ describe Salesforce::SObject do
           "CreatedDate"=>"2011-10-27T14:45:41.000+0000"
         }
       end
+      let(:time) { Time.utc(2011,10,27,14,45,41)}
       let(:account) { Account.new(attributes) }
 
       before do
@@ -33,7 +34,7 @@ describe Salesforce::SObject do
       end
 
       it 'sets created_date' do
-        account.created_date.should == attributes['CreatedDate']
+        account.created_date.should == time
       end
 
     end
