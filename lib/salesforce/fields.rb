@@ -20,7 +20,7 @@ module Salesforce
       end
 
       def field(name, options = {})
-        add_field(name.to_s.underscore, options)
+        add_field(name.to_s, options)
       end
 
       def fields
@@ -34,23 +34,23 @@ module Salesforce
       protected
 
       def add_field(name, options = {})
-        meth = options.delete(:as) || name
         fields[name] = create_field(name, options)
-        create_accessors(name, meth, options)
+        create_accessors(name, options)
       end
 
       def create_field(name, options)
-        { :cast_to => nil }
+        { :method_name => name.underscore }
       end
 
-      def create_accessors(name, meth, options)
+      def create_accessors(name, options)
         field = fields[name]
+        method_name = field[:method_name]
         generated_field_methods.module_eval do |klass|
-          define_method(meth) do
-            read_attribute(name)
+          define_method(method_name) do
+            read_attribute(method_name)
           end
-          define_method("#{meth}=") do |value|
-            write_attribute(name, value)
+          define_method("#{method_name}=") do |value|
+            write_attribute(method_name, value)
           end
         end
       end

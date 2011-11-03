@@ -4,12 +4,16 @@ module Salesforce
 
     module ClassMethods
 
+      def base_url
+        Salesforce.configuration.service_url + "/sobjects/#{name}"
+      end
+
       def object_url(id)
-        Salesforce.configuration.service_url + "/sobjects/#{name}/#{id}"
+        "#{base_url}/#{id}"
       end
 
       def description_url
-        Salesforce.configuration.service_url + "/sobjects/#{name}/describe"
+        "#{base_url}/describe"
       end
 
       def request_object(id)
@@ -20,7 +24,14 @@ module Salesforce
         request_data(description_url)
       end
 
+      def persist_object(o)
+        send_data o
+      end
+
       private
+
+      def send_data(o)
+      end
 
       def request_data(url)
         response = Typhoeus::Request.get(

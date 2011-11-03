@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "salesforce"
   s.version     = Salesforce::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Martin Jagusch", "Hans Hasselberg"]
+  s.authors     = ["Hans Hasselberg"]
   s.summary     = "Elegant Salesforce REST API integration."
   s.description = "todo"
 
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency("typhoeus")
   s.add_dependency("json")
-  s.add_dependency("active_support")
+  s.add_dependency("activemodel", ["~> 3.1"])
   s.add_dependency("i18n")
 
   s.add_development_dependency("rdoc", ["~> 3.5.0"])

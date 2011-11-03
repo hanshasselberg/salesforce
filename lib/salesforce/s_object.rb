@@ -2,10 +2,12 @@ module Salesforce
   module SObject
     extend ActiveSupport::Concern
 
+    include ActiveModel::Serializers::JSON
     include Salesforce::Attributes
     include Salesforce::Persistence
     include Salesforce::Connection
     include Salesforce::Fields
+    include Salesforce::Serialization
 
     attr_reader :new_record
 
