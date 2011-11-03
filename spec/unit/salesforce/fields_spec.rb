@@ -20,6 +20,15 @@ describe Salesforce::Fields do
         }
       ]}
     }
+
+    context 'fields are discovered' do
+
+      it 'responds_to id' do
+        klass.new.should respond_to(:id)
+      end
+
+    end
+
   end
 
   describe '.field' do

@@ -5,15 +5,15 @@ module Salesforce
     module ClassMethods
 
       def object_url(id)
-        Salesforce.configuration.service_url + "/sobjects/#{self.type}/#{id}"
+        Salesforce.configuration.service_url + "/sobjects/#{name}/#{id}"
       end
 
       def description_url
-        Salesforce.configuration.service_url + "/sobjects/#{self.type}/describe"
+        Salesforce.configuration.service_url + "/sobjects/#{name}/describe"
       end
 
       def request_object(id)
-        Account.new request_data(object_url(id))
+        new request_data(object_url(id))
       end
 
       def request_description

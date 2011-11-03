@@ -3,8 +3,7 @@ module Salesforce
     extend ActiveSupport::Concern
 
     included do
-      # field(:_Id)
-      # alias :id :_Id
+      discovery
     end
 
     def fields
@@ -13,14 +12,15 @@ module Salesforce
 
     module ClassMethods
 
-      # def discovery
-      #   return if Salesforce.configuration.disable_discovery
-
-      #   fields = self.request_description["fields"]
-      # end
+      def discovery
+        return if Salesforce.configuration.disable_discovery
+        request_description['fields'].each do |desc|
+          field(desc['name'])
+        end
+      end
 
       def field(name, options = {})
-        add_field(name.to_s, options)
+        add_field(name.to_s.underscore, options)
       end
 
       def fields
