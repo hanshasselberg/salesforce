@@ -8,6 +8,12 @@ very welcome!
 
 Salesforce is a gem to access Salesforce Rest API.
 
+## Features
+
+* Uses Rest API
+* Discovers fields on its own
+* Gets out of your way!
+
 ## Usage assuming you are using Rails
 
 Provide credentials.
