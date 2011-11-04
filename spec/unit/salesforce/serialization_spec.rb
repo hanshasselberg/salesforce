@@ -20,6 +20,30 @@ describe Salesforce::Serialization do
         account.to_json.should eq(json)
       end
 
+      context 'given :only => Id' do
+
+        it 'returns json containing Id' do
+          account.to_json(:only => 'Id').should include('Id')
+        end
+
+        it 'returns json not containing Website' do
+          account.to_json(:only => 'Id').should_not include('Website')
+        end
+
+      end
+
+      context 'given :except => Website' do
+
+        it 'returns json containing Id' do
+          account.to_json(:except => 'Website').should include('Id')
+        end
+
+        it 'returns json not containing Website' do
+          account.to_json(:except => 'Website').should_not include('Website')
+        end
+
+      end
+
     end
 
     describe '#serializable_hash' do
