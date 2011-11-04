@@ -31,6 +31,23 @@ module Salesforce
       private
 
       def send_data(o)
+        request = Typhoeus::Request.new(
+          base_url,
+          :method => o.new_record ? :post : :put,
+          :headers => headers,
+          :body => o.serializable_hash.to_json.to_s
+        )
+        hydra = Typhoeus::Hydra.new
+        hydra.queue(request)
+        hydra.run
+
+        response = request.response
+        body = JSON.parse(response.body)
+        unless response.code == 201
+          raise SalesforceError.new("#{body.first['errorCode']}: #{body.first['message']}")
+        end
+        o.id = body['id']
+        o
       end
 
       def request_data(url)

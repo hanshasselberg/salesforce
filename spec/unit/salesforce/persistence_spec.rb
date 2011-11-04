@@ -2,13 +2,20 @@ require 'spec_helper'
 
 describe Salesforce::Persistence do
 
+  let(:klass) { Account }
+
   describe '#save' do
 
-    let(:account) { Account.new(:name => 'Test') }
+    context 'given a new object' do
 
-    before{ account.save }
-    it 'writes valid id' do
-      account.id.should be
+      it 'returns object' do
+        klass.new(:name => 'Test').save.should be_a(klass)
+      end
+
+      it 'writes valid id' do
+        klass.new(:name => 'Test').save.id.should be
+      end
+
     end
 
   end

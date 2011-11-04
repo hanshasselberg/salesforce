@@ -3,7 +3,7 @@ module Salesforce
     extend ActiveSupport::Concern
 
     def save
-
+      self.class.persist_object(self)
     end
 
     module ClassMethods
