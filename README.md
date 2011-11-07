@@ -34,14 +34,14 @@ Mark classes.
 # app/models/account.rb
 #
 class Account
-  include Salesforce::SObject
+  include Salesforce::Ressource
 end
 
 # app/models/product.rb
 # with custom object
 #
 class Product
-  include Salesforce::Object
+  include Salesforce::Ressource
   stored_in :Product__c
 end
 ```
