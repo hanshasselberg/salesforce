@@ -1,5 +1,5 @@
 module Salesforce
-  module SObject
+  module Ressource
     extend ActiveSupport::Concern
 
     include ActiveModel::Serializers::JSON

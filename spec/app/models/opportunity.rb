@@ -1,3 +1,3 @@
 class Opportunity
-  include Salesforce::SObject
+  include Salesforce::Ressource
 end

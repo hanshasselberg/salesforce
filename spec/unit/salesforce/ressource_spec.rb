@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Salesforce::SObject do
+describe Salesforce::Ressource do
 
   describe '#initialize' do
 
@@ -20,9 +20,9 @@ describe Salesforce::SObject do
       let(:account) { Account.new(attributes) }
 
       before do
-        Account.field(:name)
-        Account.field(:id)
-        Account.field(:created_date)
+        Account.field(:Name)
+        Account.field(:Id)
+        Account.field(:CreatedDate)
       end
 
       it 'sets id' do

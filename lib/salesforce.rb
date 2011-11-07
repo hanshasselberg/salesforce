@@ -11,7 +11,7 @@ require 'salesforce/fields'
 require 'salesforce/persistence'
 require 'salesforce/attributes'
 require 'salesforce/serialization'
-require 'salesforce/s_object'
+require 'salesforce/ressource'
 
 module Salesforce #:nodoc
 
