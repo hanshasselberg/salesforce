@@ -20,8 +20,8 @@ module Salesforce
         new request_data(object_url(id))
       end
 
-      def request_description
-        request_data(description_url)
+      def description
+        @ressource_description ||= request_data(description_url)
       end
 
       def persist_object(o)

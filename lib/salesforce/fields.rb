@@ -14,7 +14,7 @@ module Salesforce
 
       def discovery
         return if Salesforce.configuration.disable_discovery
-        request_description['fields'].each do |desc|
+        description['fields'].each do |desc|
           field(desc['name'])
         end
       end
