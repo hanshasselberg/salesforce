@@ -25,7 +25,7 @@ module Salesforce
       end
 
       def persist_object(o)
-        send_data o
+        # send_data o
       end
 
       private
