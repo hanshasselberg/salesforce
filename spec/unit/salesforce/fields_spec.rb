@@ -16,7 +16,8 @@ describe Salesforce::Fields do
           "length" => 18,
           "name" => "Id",
           "type" => "id",
-          "defaultValue" => { "value" => null }
+          "defaultValue" => { "value" => nil},
+          "updateable" => false
         }
       ]}
     }
