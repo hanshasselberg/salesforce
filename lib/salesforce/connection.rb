@@ -31,17 +31,8 @@ module Salesforce
       private
 
       def send_data(o)
-        request = Typhoeus::Request.new(
-          base_url,
-          :method => o.new_record ? :post : :put,
-          :headers => headers,
-          :body => o.serializable_hash.to_json.to_s
-        )
-        hydra = Typhoeus::Hydra.new
-        hydra.queue(request)
-        hydra.run
-
-        response = request.response
+        method = o.new_record ? :post : :put
+        response = request(url, :method => method, :body => o.serializable_hash.to_json.to_s)
         body = JSON.parse(response.body)
         unless response.code == 201
           raise SalesforceError.new("#{body.first['errorCode']}: #{body.first['message']}")
@@ -51,10 +42,7 @@ module Salesforce
       end
 
       def request_data(url)
-        response = Typhoeus::Request.get(
-          url,
-          :headers => headers
-        )
+        response = request(url, :method => :get)
         body = JSON.parse(response.body)
         unless response.code == 200
           raise SalesforceError.new("#{body.first['errorCode']}: #{body.first['message']}")
@@ -62,11 +50,21 @@ module Salesforce
         body
       end
 
+      def request(url, options = {})
+        request = Typhoeus::Request.new(url, options.merge(headers))
+        hydra = Typhoeus::Hydra.new
+        hydra.queue(request)
+        hydra.run
+        request.response
+      end
+
       def headers
-        {
-          'Authorization' => "OAuth #{Salesforce.configuration.access_token}",
-          'Content-Type' => 'application/json; charset=UTF-8',
-          'Accept' => 'application/json'
+        {:headers =>
+          {
+            'Authorization' => "OAuth #{Salesforce.configuration.access_token}",
+            'Content-Type' => 'application/json; charset=UTF-8',
+            'Accept' => 'application/json'
+          }
         }
       end
 
