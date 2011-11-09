@@ -5,11 +5,11 @@ require 'active_support/concern'
 require 'active_support/core_ext'
 require 'active_model'
 
+require 'salesforce/attributes'
 require 'salesforce/configuration'
 require 'salesforce/connection'
 require 'salesforce/fields'
 require 'salesforce/persistence'
-require 'salesforce/attributes'
 require 'salesforce/serialization'
 require 'salesforce/ressource'
 
