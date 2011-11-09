@@ -23,7 +23,14 @@ module Salesforce #:nodoc
 
   attr_reader :configuration
 
-  SF_API_VERSION = "v22.0"
+  def self.latest_api_version
+    api_versions.max_by { |e| e['version'] }
+  end
+
+  def self.api_versions
+    @api_versions ||= Connection.
+      request('http://na1.salesforce.com/services/data/', :no_auth => true)
+  end
 
   def self.configure
     block_given? ? yield(configuration) : configuration
