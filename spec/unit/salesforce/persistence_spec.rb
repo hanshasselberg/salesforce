@@ -9,10 +9,12 @@ describe Salesforce::Persistence do
     context 'given a new object' do
 
       it 'returns object' do
+        pending
         klass.new(:name => 'Test').save.should be_a(klass)
       end
 
       it 'writes valid id' do
+        pending
         klass.new(:name => 'Test').save.id.should be
       end
 
