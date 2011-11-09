@@ -33,7 +33,8 @@ module Salesforce
         options[:headers] ||= {}
         options[:headers].merge!(default_headers)
         options[:headers].merge!(auth_headers) if not options.delete(:no_auth)
-        # options.merge! :verbose => true
+        options.merge! :verbose => true
+        p "url: #{url}"
         request = Typhoeus::Request.new(url, options)
         hydra = Typhoeus::Hydra.hydra
         hydra.queue(request)

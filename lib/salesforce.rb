@@ -8,12 +8,14 @@ require 'active_model'
 require 'salesforce/attributes'
 require 'salesforce/configuration'
 require 'salesforce/connection'
+require 'salesforce/description'
 require 'salesforce/fields'
 require 'salesforce/persistence'
 require 'salesforce/serialization'
 require 'salesforce/ressource'
 
 module Salesforce #:nodoc
+  include Description::ApiVersions
 
   class SalesforceError < StandardError
     def initialize(message)
@@ -22,15 +24,6 @@ module Salesforce #:nodoc
   end
 
   attr_reader :configuration
-
-  def self.latest_api_version
-    api_versions.max_by { |e| e['version'] }
-  end
-
-  def self.api_versions
-    @api_versions ||= Connection.
-      request('http://na1.salesforce.com/services/data/', :no_auth => true)
-  end
 
   def self.configure
     block_given? ? yield(configuration) : configuration

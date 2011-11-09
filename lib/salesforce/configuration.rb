@@ -7,8 +7,11 @@ module Salesforce
     def initialize
       @access_token_url = 'https://login.salesforce.com/services/oauth2/token'
       @grant_type = 'password'
-      @service_path = Salesforce.latest_api_version['url']
       @disable_discovery = false
+    end
+
+    def service_path
+      Salesforce.latest_api_version['url']
     end
 
     def username

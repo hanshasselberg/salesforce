@@ -1,6 +1,9 @@
 require 'spec_helper'
+require 'account'
 
 describe Salesforce::Ressource do
+
+  let(:klass) { Account }
 
   describe '#initialize' do
 
@@ -17,12 +20,12 @@ describe Salesforce::Ressource do
         }
       end
       let(:time) { Time.utc(2011,10,27,14,45,41)}
-      let(:account) { Account.new(attributes) }
+      let(:account) { klass.new(attributes) }
 
       before do
-        Account.field(:Name)
-        Account.field(:Id)
-        Account.field(:CreatedDate)
+        klass.field(:Name)
+        klass.field(:Id)
+        klass.field(:CreatedDate)
       end
 
       it 'sets id' do
@@ -43,7 +46,7 @@ describe Salesforce::Ressource do
 
   describe '.type' do
 
-    specify { Account.type.should == 'Account'}
+    specify { klass.type.should == 'Account'}
 
   end
 
