@@ -3,6 +3,7 @@ module Salesforce
     extend ActiveSupport::Concern
 
     include ActiveModel::Serializers::JSON
+    include Salesforce::Description
     include Salesforce::Attributes
     include Salesforce::Persistence
     include Salesforce::Connection
