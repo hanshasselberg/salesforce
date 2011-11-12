@@ -24,6 +24,7 @@ describe Salesforce::Ressource do
 
       before do
         klass.field(:Name)
+        # p desc(:Name)
         klass.field(:Id)
         klass.field(:CreatedDate)
       end

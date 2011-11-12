@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'account'
 
 describe Salesforce::Fields do
 
@@ -34,26 +35,63 @@ describe Salesforce::Fields do
 
   describe '.field' do
 
-    let!(:name) { :identifier }
-    before { klass.field(name) }
 
-    it "adds to fields" do
-      klass.fields.should include(name.to_s)
-    end
+    context 'field is updateable' do
 
-    it 'creates a getter' do
-      klass.new.should respond_to(name)
-    end
+      let(:desc) { { 'name' => :indentifier, 'updateable' => true, 'defaultValue' => { 'value' => nil } } }
+      let(:name) { desc['name'] }
 
-    it 'creates a setter' do
-      klass.new.should respond_to("#{name}=")
-    end
+      before { klass.field(desc) }
 
-    it 'returns assigned value' do
-      klass.new.tap do |o|
-        o.send "#{name}=", 42
-        o.send(name).should == 42
+      it 'add desc to fields' do
+        klass.fields[name.to_s].should == desc.merge('method_name' => name.to_s)
       end
+
+      it 'creates a getter' do
+        klass.new.should respond_to(name)
+      end
+
+      it 'creates a setter' do
+        klass.new.should respond_to("#{name}=")
+      end
+
+      it 'returns assigned value' do
+        klass.new.tap do |o|
+          o.send "#{name}=", 42
+          o.send(name).should == 42
+        end
+      end
+
+    end
+
+    context 'name is not updateable' do
+
+      let(:desc) { { 'name' => :fubar, 'updateable' => false, 'defaultValue' => { 'value' => nil } } }
+      let(:name) { desc['name'] }
+
+      before { klass.field(desc) }
+
+      it 'creates a getter' do
+        klass.new.should respond_to name
+      end
+
+      it 'creates no setter' do
+        klass.new.should_not respond_to("#{name}=")
+      end
+
+    end
+
+    context 'name has default' do
+
+      let(:desc) { { 'name' => :fubar, 'updateable' => false, 'defaultValue' => { 'value' => 1 } } }
+      let(:name) { 'fubar' }
+
+      before { klass.field(desc) }
+
+      it 'defaults to 1' do
+        klass.new.send(name).should == 1
+      end
+
     end
 
   end

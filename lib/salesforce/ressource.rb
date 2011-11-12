@@ -15,6 +15,7 @@ module Salesforce
       @new_record = true
       @attributes ||= {}
       options ||= {}
+      apply_defaults
       process(attrs)
     end
 
