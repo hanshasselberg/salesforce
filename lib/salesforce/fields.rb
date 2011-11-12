@@ -50,8 +50,10 @@ module Salesforce
           define_method(method_name) do
             read_attribute(method_name)
           end
-          define_method("#{method_name}=") do |value|
-            write_attribute(method_name, value)
+          if field['updateable']
+            define_method("#{method_name}=") do |value|
+              write_attribute(method_name, value)
+            end
           end
         end
       end
