@@ -11,7 +11,7 @@ module Salesforce
     end
 
     def service_path
-      Salesforce.latest_api_version['url']
+      Salesforce::Description::ApiVersions.latest['url']
     end
 
     def username

@@ -15,7 +15,6 @@ require 'salesforce/serialization'
 require 'salesforce/ressource'
 
 module Salesforce #:nodoc
-  include Description::ApiVersions
 
   class SalesforceError < StandardError
     def initialize(message)
