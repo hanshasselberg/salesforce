@@ -4,9 +4,8 @@ This little gem provides elegant access to the Salesforce [REST API](http://www.
 
 ## About Salesforce
 
-The gem tries to handle as much as possible for you. Provide a configuration, ```include Salesforce::Ressource``` 
-and you are ready to go! At this time the available fields are already discovered and getters generated. At the moment
-only date fields are casted, others are god ol' strings.
+The gem tries to handle as much as possible for you. Provide a configuration, ```include Salesforce::Ressource```
+and you are ready to go! At this time the available fields are already discovered and getters generated.
 
 ## Usage
 
@@ -24,9 +23,9 @@ class Account
 end
 
 account = Account.find('001U0000005cy3yIAA')
-account.id 
+account.id
 #=> '001U0000005cy3yIAA'
 
 account.attributes
-#=> 
+#=>
 ```
