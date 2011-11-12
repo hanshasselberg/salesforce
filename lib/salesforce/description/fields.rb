@@ -2,7 +2,7 @@ module Salesforce
   module Description
     module Fields
 
-      def self.description_url(klass)
+      def self.url(klass)
         "/services/data/#{ApiVersions.latest}/sobjects/#{klass}/describe"
       end
 
@@ -11,7 +11,7 @@ module Salesforce
         desc = @description[klass]
         return desc if desc # early return
         @description[klass] = Connection.request(
-          description_url(klass)
+          url(klass)
         )
 
       end

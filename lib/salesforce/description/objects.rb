@@ -2,12 +2,12 @@ module Salesforce
   module Description
     module Objects
 
-      def self.description_url
+      def self.url
         "/services/data/#{api_version}/sobjects"
       end
 
       def self.description
-        @description ||= Connection.request(@description_url)
+        @description ||= Connection.request(@url)
       end
 
       private
