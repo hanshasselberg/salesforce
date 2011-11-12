@@ -1,55 +1,51 @@
 module Salesforce
   module Description
     module Objects
-      extend ActiveSupport::Concern
 
-      module ClassMethods
-
-        def objects_description_url
-          "/services/data/#{api_version}/sobjects"
-        end
-
-        def objects_description
-          @objects_description ||= Connection.request(@objects_description_url) || default_objects_description
-        end
-
-        private
-
-        def default_objects_description
-          {
-            "encoding" => "UTF-8",
-            "maxBatchSize" => 200,
-            "sobjects" => [ {
-              "name" => "Account",
-              "label" => "Account",
-              "custom" => false,
-              "keyPrefix" => "001",
-              "updateable" => true,
-              "searchable" => true,
-              "labelPlural" => "Accounts",
-              "layoutable" => true,
-              "activateable" => false,
-              "urls" => {
-                "sobject" => "/services/data/v23.0/sobjects/Account",
-                "describe" => "/services/data/v23.0/sobjects/Account/describe",
-                "rowTemplate" => "/services/data/v20.0/sobjects/Account/{ID}"
-              },
-              "createable" => true,
-              "customSetting" => false,
-              "deletable" => true,
-              "deprecatedAndHidden" => false,
-              "feedEnabled" => false,
-              "mergeable" => true,
-              "queryable" => true,
-              "replicateable" => true,
-              "retrieveable" => true,
-              "undeletable" => true,
-              "triggerable" => true
-            } ]
-          }
-        end
-
+      def self.description_url
+        "/services/data/#{api_version}/sobjects"
       end
+
+      def self.description
+        @description ||= Connection.request(@description_url)
+      end
+
+      private
+
+      def self.default_description
+        {
+          "encoding" => "UTF-8",
+          "maxBatchSize" => 200,
+          "sobjects" => [ {
+            "name" => "Account",
+            "label" => "Account",
+            "custom" => false,
+            "keyPrefix" => "001",
+            "updateable" => true,
+            "searchable" => true,
+            "labelPlural" => "Accounts",
+            "layoutable" => true,
+            "activateable" => false,
+            "urls" => {
+              "sobject" => "/services/data/v23.0/sobjects/Account",
+              "describe" => "/services/data/v23.0/sobjects/Account/describe",
+              "rowTemplate" => "/services/data/v20.0/sobjects/Account/{ID}"
+            },
+            "createable" => true,
+            "customSetting" => false,
+            "deletable" => true,
+            "deprecatedAndHidden" => false,
+            "feedEnabled" => false,
+            "mergeable" => true,
+            "queryable" => true,
+            "replicateable" => true,
+            "retrieveable" => true,
+            "undeletable" => true,
+            "triggerable" => true
+          } ]
+        }
+      end
+
     end
   end
 end

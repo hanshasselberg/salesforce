@@ -2,17 +2,14 @@ require 'spec_helper'
 
 describe Salesforce::Description::ApiVersions do
 
-  let(:klass) do
-    class Dummy
-      include Salesforce::Description::ApiVersions
-    end
-    Dummy
+  let(:mod) do
+    Salesforce::Description::ApiVersions
   end
 
-  let(:version) { klass.api_version }
+  let(:version) { mod.latest }
 
 
-  describe ".api_version" do
+  describe ".latest" do
 
     specify { version.should include('url', 'version', 'label') }
 

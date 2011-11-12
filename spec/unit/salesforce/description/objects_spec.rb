@@ -5,15 +5,17 @@ describe Salesforce::Description::Objects do
 
   describe '.objects' do
 
-    let(:klass) do
-      Account.instance_variable_set(
-        :@objects_description,
-        Account.send(:default_objects_description)
+    let(:mod) { Salesforce::Description::Objects }
+    let(:klass) { Account }
+
+    before do
+      mod.instance_variable_set(
+        :@description,
+        mod.send( :default_description )
       )
-      Account
     end
 
-    specify { klass.objects_description.should be_a(Hash) }
+    specify { mod.description.should be_a(Hash) }
 
   end
 end

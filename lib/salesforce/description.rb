@@ -4,11 +4,6 @@ require 'salesforce/description/fields'
 
 module Salesforce
   module Description
-    extend ActiveSupport::Concern
-
-    include ApiVersions
-    include Objects
-    include Fields
 
   end
 end

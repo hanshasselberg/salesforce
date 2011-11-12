@@ -5,14 +5,19 @@ describe Salesforce::Description::Fields do
 
   describe '.objects' do
 
-    let(:klass) do
-      Account.instance_variable_set(
-        :@fields_description,
-        Account => Account.send(:default_fields_description, Account))
-      Account
-    end
+    let(:mod) { Salesforce::Description::Fields}
+    let(:klass) { Account }
 
-    specify { klass.fields_description(klass).should be_a(Array) }
+    before do
+      mod.instance_variable_set(
+        :@description,
+        Account => mod.send(
+          :default_description,
+          Account
+        )
+      )
+    end
+    specify { mod.description(klass).should be_a(Array) }
 
   end
 end
