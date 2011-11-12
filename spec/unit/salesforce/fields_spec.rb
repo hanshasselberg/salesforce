@@ -38,7 +38,7 @@ describe Salesforce::Fields do
 
     context 'field is updateable' do
 
-      let(:desc) { { 'name' => :indentifier, 'updateable' => true } }
+      let(:desc) { { 'name' => :indentifier, 'updateable' => true, 'defaultValue' => { 'value' => nil } } }
       let(:name) { desc['name'] }
 
       before { klass.field(desc) }
@@ -66,7 +66,7 @@ describe Salesforce::Fields do
 
     context 'name is not updateable' do
 
-      let(:desc) { { 'name' => :fubar, 'updateable' => false } }
+      let(:desc) { { 'name' => :fubar, 'updateable' => false, 'defaultValue' => { 'value' => nil } } }
       let(:name) { desc['name'] }
 
       before { klass.field(desc) }
@@ -78,6 +78,20 @@ describe Salesforce::Fields do
       it 'creates no setter' do
         klass.new.should_not respond_to("#{name}=")
       end
+
+    end
+
+    context 'name has default' do
+
+      let(:desc) { { 'name' => :fubar, 'updateable' => false, 'defaultValue' => { 'value' => 1 } } }
+      let(:name) { 'fubar' }
+
+      before { klass.field(desc) }
+
+      it 'defaults to 1' do
+        klass.new.send(name).should == 1
+      end
+
     end
 
   end

@@ -10,6 +10,10 @@ module Salesforce
       self.class.fields
     end
 
+    def defaults
+      self.class.defaults
+    end
+
     module ClassMethods
 
       def discovery
@@ -20,6 +24,13 @@ module Salesforce
       end
 
       def field(desc, options = {})
+        if desc.is_a?(String) || desc.is_a?(Symbol)
+          desc = {
+            'name' => desc.to_s,
+            'updateable' => true,
+            'defaultValue' => { 'value' => nil }
+          }
+        end
         add_field(desc, options)
       end
 
@@ -31,11 +42,20 @@ module Salesforce
         @fields = fields
       end
 
+      def defaults
+        @defaults ||= []
+      end
+
+      def defaults=(defaults)
+        @defaults = defaults
+      end
+
       protected
 
       def add_field(desc, options = {})
-        name = desc['name'].to_s
+        name = desc['name'].to_s.underscore
         fields[name] = create_field(desc, options)
+        defaults << name
         create_accessors(name, options)
       end
 
@@ -47,6 +67,7 @@ module Salesforce
         field = fields[name]
         method_name = field['method_name']
         generated_field_methods.module_eval do |klass|
+          # p field.inspect
           define_method(method_name) do
             read_attribute(method_name)
           end

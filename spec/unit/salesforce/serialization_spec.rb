@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'account'
 
 describe Salesforce::Serialization do
 
