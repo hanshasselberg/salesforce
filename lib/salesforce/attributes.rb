@@ -28,5 +28,17 @@ module Salesforce
       end
     end
 
+    def apply_defaults
+      defaults.each do |name|
+        unless attributes.has_key?(name)
+          if field = fields[name]
+            if field.has_key?('defaultValue')
+              attributes[name] = field['defaultValue']['value']
+            end
+          end
+        end
+      end
+    end
+
   end
 end

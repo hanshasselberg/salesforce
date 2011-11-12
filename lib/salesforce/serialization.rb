@@ -8,7 +8,8 @@ module Salesforce
       only = Array.wrap(options[:only]).map(&:to_s)
       except = Array.wrap(options[:except]).map(&:to_s)
 
-      field_names = fields.keys.map(&:to_s)
+      field_names = fields.values.map{ |f| f['name'].to_s }
+
       if only.any?
         field_names &= only
       elsif except.any?
@@ -16,8 +17,8 @@ module Salesforce
       end
 
       array = fields.
-        select{ |k, v| field_names.include?(k) }.
-        map{ |k, v| [k, send(v[:method_name])] }.
+        select{ |k, v| field_names.include?(v['name']) }.
+        map{ |k, v| [v['name'], send(v['method_name'])] }.
         select{ |e| e.last.present?}
       Hash[array]
     end
