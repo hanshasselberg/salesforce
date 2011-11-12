@@ -7,7 +7,7 @@ describe Salesforce::Configuration do
   let(:configuration) { Salesforce::Configuration.new }
   before(:each){ configuration.reset }
 
-  describe '.reset' do
+  describe '#reset' do
 
     it 'removes previous cached response' do
       configuration.instance_variable_set(:@response, true)
@@ -17,9 +17,15 @@ describe Salesforce::Configuration do
 
   end
 
+  describe '#service_path' do
+
+    specify { configuration.service_path.should be_a(String) }
+
+  end
+
   context 'salesforce interaction' do
 
-    describe '.ask_salesforce' do
+    describe '#ask_salesforce' do
 
       context 'given valid credentials' do
 
