@@ -15,12 +15,12 @@ module Salesforce
       def discovery
         return if Salesforce.configuration.disable_discovery
         description['fields'].each do |desc|
-          field(desc['name'])
+          field(desc)
         end
       end
 
-      def field(name, options = {})
-        add_field(name.to_s, options)
+      def field(desc, options = {})
+        add_field(desc, options)
       end
 
       def fields
@@ -33,18 +33,19 @@ module Salesforce
 
       protected
 
-      def add_field(name, options = {})
-        fields[name] = create_field(name, options)
+      def add_field(desc, options = {})
+        name = desc['name'].to_s
+        fields[name] = create_field(desc, options)
         create_accessors(name, options)
       end
 
-      def create_field(name, options)
-        { :method_name => name.underscore }
+      def create_field(desc, options)
+        desc.merge 'method_name' => desc['name'].to_s.underscore
       end
 
       def create_accessors(name, options)
         field = fields[name]
-        method_name = field[:method_name]
+        method_name = field['method_name']
         generated_field_methods.module_eval do |klass|
           define_method(method_name) do
             read_attribute(method_name)
