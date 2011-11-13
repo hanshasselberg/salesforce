@@ -5,7 +5,6 @@ module Salesforce
     include ActiveModel::Serializers::JSON
     include Salesforce::Attributes
     include Salesforce::Persistence
-    include Salesforce::Connection
     include Salesforce::Fields
     include Salesforce::Serialization
 
