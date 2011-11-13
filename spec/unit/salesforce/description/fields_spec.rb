@@ -11,13 +11,13 @@ describe Salesforce::Description::Fields do
     before do
       mod.instance_variable_set(
         :@description,
-        Account => mod.send(
+        klass.ressource_name => mod.send(
           :default_description,
-          Account
+          klass.ressource_name
         )
       )
     end
-    specify { mod.description(klass).should be_a(Array) }
+    specify { mod.description(klass.ressource_name).should be_a(Array) }
 
   end
 end

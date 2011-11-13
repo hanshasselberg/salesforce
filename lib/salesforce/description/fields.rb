@@ -2,24 +2,24 @@ module Salesforce
   module Description
     module Fields
 
-      def self.url(klass)
-        "/services/data/#{ApiVersions.latest}/sobjects/#{klass}/describe"
+      def self.url(ressource_name)
+        "/services/data/#{ApiVersions.latest}/sobjects/#{ressource_name}/describe"
       end
 
-      def self.description(klass)
+      def self.description(ressource_name)
         @description ||= {} #init
-        desc = @description[klass]
+        desc = @description[ressource_name]
         return desc if desc # early return
-        @description[klass] = Connection.request(
-          url(klass)
+        @description[ressource_name] = Connection.request(
+          url(ressource_name)
         )
 
       end
 
       private
 
-      def self.default_description(klass)
-        if klass == Account
+      def self.default_description(ressource_name)
+        if ressource_name == 'Account'
           [
              {
                 "length" => 18,
