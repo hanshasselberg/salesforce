@@ -24,10 +24,6 @@ module Salesforce
         @ressource_description ||= request(description_url)
       end
 
-      def persist_object(o)
-        # send_data o
-      end
-
       def request(url, options = {})
         options[:method] ||= :get
         options[:headers] ||= {}
