@@ -11,6 +11,11 @@ module Salesforce
 
     attr_reader :new_record
 
+    included do
+      cattr_accessor :ressource_name
+      self.ressource_name = self.name
+    end
+
     def initialize(attrs = nil, options = nil)
       @new_record = true
       @attributes ||= {}
@@ -21,8 +26,8 @@ module Salesforce
 
     module ClassMethods
 
-      def type
-        'Account'
+      def stored_in(name)
+        self.ressource_name = name
       end
 
     end

@@ -24,7 +24,6 @@ describe Salesforce::Ressource do
 
       before do
         klass.field(:Name)
-        # p desc(:Name)
         klass.field(:Id)
         klass.field(:CreatedDate)
       end
@@ -45,9 +44,9 @@ describe Salesforce::Ressource do
 
   end
 
-  describe '.type' do
+  describe '.ressource_name' do
 
-    specify { klass.type.should == 'Account'}
+    specify { klass.ressource_name.should == 'Account'}
 
   end
 

@@ -31,4 +31,5 @@ module Salesforce #:nodoc
   def self.configuration
     @configuration ||= Configuration.new
   end
+
 end
