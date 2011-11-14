@@ -23,7 +23,7 @@ module Salesforce
           [
              {
                 "length" => 18,
-                "klass" => "Id",
+                "name" => "Id",
                 "type" => "id",
                 "defaultValue" => { "value" => nil },
                 "updateable" => false,

@@ -3,7 +3,7 @@ module Salesforce
     extend ActiveSupport::Concern
 
     included do
-      discovery
+      discovery unless Salesforce.configuration.disable_discovery
     end
 
     def fields
@@ -17,8 +17,7 @@ module Salesforce
     module ClassMethods
 
       def discovery
-        return if Salesforce.configuration.disable_discovery
-        description['fields'].each do |desc|
+        Description::Fields.description(self.ressource_name).each do |desc|
           field(desc)
         end
       end

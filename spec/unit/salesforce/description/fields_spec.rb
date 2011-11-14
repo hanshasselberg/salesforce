@@ -17,6 +17,7 @@ describe Salesforce::Description::Fields do
         )
       )
     end
+
     specify { mod.description(klass.ressource_name).should be_a(Array) }
 
   end

@@ -4,6 +4,7 @@ module Salesforce
 
     include ActiveModel::Serializers::JSON
     include Salesforce::Attributes
+    include Salesforce::Extras
     include Salesforce::Persistence
     include Salesforce::Fields
     include Salesforce::Serialization
@@ -11,7 +12,6 @@ module Salesforce
     attr_reader :new_record
 
     included do
-      cattr_accessor :ressource_name
       self.ressource_name = self.name
     end
 
@@ -21,14 +21,6 @@ module Salesforce
       options ||= {}
       apply_defaults
       process(attrs)
-    end
-
-    module ClassMethods
-
-      def stored_in(name)
-        self.ressource_name = name
-      end
-
     end
 
   end
