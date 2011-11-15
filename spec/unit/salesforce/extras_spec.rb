@@ -1,20 +1,30 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Extras do
 
   describe '.ressource_name' do
 
     let(:klass) { Account }
-    let(:name) { 'fubar' }
 
     specify { klass.should respond_to(:ressource_name) }
 
-    before do
-      klass.ressource_name = name
+    context 'no name was set' do
+
+      specify { klass.ressource_name.should == klass.name }
+
     end
 
-    specify { klass.ressource_name.should == name}
+    context 'a name was set' do
+
+      let(:name) { 'fubar' }
+      before do
+        klass.ressource_name = name
+      end
+
+      specify { klass.ressource_name.should == name}
+
+    end
+
   end
 
 end

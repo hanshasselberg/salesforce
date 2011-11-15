@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Fields do
 

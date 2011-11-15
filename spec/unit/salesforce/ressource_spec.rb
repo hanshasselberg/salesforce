@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Ressource do
 
@@ -41,12 +40,6 @@ describe Salesforce::Ressource do
       end
 
     end
-
-  end
-
-  describe '.ressource_name' do
-
-    specify { klass.ressource_name.should == 'Account'}
 
   end
 

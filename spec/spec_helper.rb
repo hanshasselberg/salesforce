@@ -6,20 +6,19 @@ $LOAD_PATH.unshift(MODELS)
 
 require 'salesforce'
 
-# Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
-
 Salesforce.configure do |config|
   config.disable_discovery = true
 end
 
+Dir[ File.join(MODELS, "*.rb") ].sort.each { |file| require File.basename(file) }
+
 RSpec.configure do |config|
 
-  # config.before :all do
-  #   Salesforce.instance_variable_set(
-  #     :@api_versions,
-  #     api_versions_dummy
-  #   )
-  # end
+  # ressource name not resetted caused a lot trouble!
+  config.before :each do
+    Account.ressource_name = 'Account'
+    Opportunity.ressource_name = 'Opportunity'
+  end
 
 end
 

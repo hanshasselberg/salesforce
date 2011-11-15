@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'account'
-require 'opportunity'
 
 describe Salesforce::Configuration do
 

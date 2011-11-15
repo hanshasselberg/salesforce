@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Description::Fields do
 
@@ -9,12 +8,13 @@ describe Salesforce::Description::Fields do
     let(:klass) { Account }
 
     before do
+      desc = mod.send(
+        :default_description,
+        klass.ressource_name
+      )
       mod.instance_variable_set(
         :@description,
-        klass.ressource_name => mod.send(
-          :default_description,
-          klass.ressource_name
-        )
+        klass.ressource_name => desc
       )
     end
 
