@@ -9,7 +9,9 @@ module Salesforce
     module ClassMethods
 
       def find(id)
-        request_object(id)
+        attr = Connection.
+          request(Description::Objects.object_url(ressource_name, id))
+        new(attr)
       end
 
     end

@@ -3,11 +3,17 @@ module Salesforce
     module Objects
 
       def self.url
-        "/services/data/#{api_version}/sobjects"
+        "#{ApiVersions.latest['url']}/sobjects"
       end
 
       def self.description
         @description ||= Connection.request(@url)
+      end
+
+      def self.object_url(ressource_name, id)
+        description['sobjects'].
+          find{ |o| o['name'] == ressource_name }['urls']['rowTemplate'].
+          gsub('{ID}', id)
       end
 
       private

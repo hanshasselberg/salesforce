@@ -65,10 +65,12 @@ module Salesforce
     end
 
     def ask_salesforce
-      @response = Typhoeus::Request.post(
-        access_token_url,
-        :params => credentials
-      )
+      request = Typhoeus::Request.new(
+        access_token_url, :params => credentials, :method => :post)
+      hydra = Typhoeus::Hydra.hydra
+      hydra.queue(request)
+      hydra.run
+      @response = request.response
       body = JSON.parse(response.body)
       raise SalesforceError.new("#{body['error']}: #{body['error_description']}") if @response.code != 200
       @access_token = body['access_token']
