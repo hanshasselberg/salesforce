@@ -2,9 +2,9 @@ module Salesforce
   class Configuration
 
     attr_accessor :username, :password, :client_id,
-      :client_secret, :disable_discovery, :use_defaults
-    attr_reader :access_token_url, :grant_type,
-      :service_path, :access_token, :instance_url
+      :client_secret, :disable_discovery, :use_defaults,
+      :access_token, :instance_url
+    attr_reader :access_token_url, :grant_type, :service_path
 
     def initialize
       @access_token_url = 'https://login.salesforce.com/services/oauth2/token'
