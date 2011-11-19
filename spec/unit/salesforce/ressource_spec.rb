@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Ressource do
 
@@ -24,7 +23,6 @@ describe Salesforce::Ressource do
 
       before do
         klass.field(:Name)
-        # p desc(:Name)
         klass.field(:Id)
         klass.field(:CreatedDate)
       end
@@ -42,12 +40,6 @@ describe Salesforce::Ressource do
       end
 
     end
-
-  end
-
-  describe '.type' do
-
-    specify { klass.type.should == 'Account'}
 
   end
 

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Description::Fields do
 
@@ -8,16 +7,7 @@ describe Salesforce::Description::Fields do
     let(:mod) { Salesforce::Description::Fields}
     let(:klass) { Account }
 
-    before do
-      mod.instance_variable_set(
-        :@description,
-        Account => mod.send(
-          :default_description,
-          Account
-        )
-      )
-    end
-    specify { mod.description(klass).should be_a(Array) }
+    specify { mod.description(klass.ressource_name).should be_a(Array) }
 
   end
 end

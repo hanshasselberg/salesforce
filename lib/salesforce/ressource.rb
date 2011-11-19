@@ -4,12 +4,16 @@ module Salesforce
 
     include ActiveModel::Serializers::JSON
     include Salesforce::Attributes
+    include Salesforce::Extras
     include Salesforce::Persistence
-    include Salesforce::Connection
     include Salesforce::Fields
     include Salesforce::Serialization
 
     attr_reader :new_record
+
+    included do
+      self.ressource_name = self.name
+    end
 
     def initialize(attrs = nil, options = nil)
       @new_record = true
@@ -17,14 +21,6 @@ module Salesforce
       options ||= {}
       apply_defaults
       process(attrs)
-    end
-
-    module ClassMethods
-
-      def type
-        'Account'
-      end
-
     end
 
   end
