@@ -1,11 +1,8 @@
 require 'spec_helper'
-require 'account'
 
 describe Salesforce::Fields do
 
   let(:klass) { Account }
-
-  let(:mod) { klass.send(:generated_field_methods) }
 
   describe '.discovery' do
 
@@ -25,6 +22,10 @@ describe Salesforce::Fields do
 
     context 'fields are discovered' do
 
+      before do
+        klass.discovery
+      end
+
       it 'responds_to id' do
         klass.new.should respond_to(:id)
       end
@@ -33,8 +34,15 @@ describe Salesforce::Fields do
 
   end
 
-  describe '.field' do
+  describe '.ressource_name' do
 
+    specify { klass.should respond_to("ressource_name") }
+
+    specify { klass.should respond_to("ressource_name=") }
+
+  end
+
+  describe '.field' do
 
     context 'field is updateable' do
 

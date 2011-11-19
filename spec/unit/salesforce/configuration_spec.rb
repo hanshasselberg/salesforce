@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'account'
-require 'opportunity'
 
 describe Salesforce::Configuration do
 
@@ -17,6 +15,12 @@ describe Salesforce::Configuration do
 
   end
 
+  describe '#use_defaults' do
+
+    specify { configuration.should respond_to(:use_defaults) }
+
+  end
+
   describe '#service_path' do
 
     specify { configuration.service_path.should be_a(String) }
@@ -29,21 +33,21 @@ describe Salesforce::Configuration do
 
       context 'given valid credentials' do
 
-        specify do
-          if ENV['SF_USERNAME']
-            configuration.send(:ask_salesforce).should be_a(Typhoeus::Response)
-          else
-            pending 'ENV credentials missing.'
-          end
+        before do
+          hydra = Typhoeus::Hydra.hydra
+          response = Typhoeus::Response.new(
+            :code => 200, :headers => "",
+            :body => '{ "access_token": "123", "instance_url":"fubar"}',
+            :time => 0.3
+          )
+          hydra.stub(
+            :post,
+            Salesforce.configuration.access_token_url
+          ).and_return(response)
         end
 
-      end
-
-      context 'given invalid credentials' do
-
-        it 'fails' do
-          configuration.instance_variable_set(:@client_secret, '1234')
-          expect { configuration.send(:ask_salesforce) }.to raise_error(Salesforce::SalesforceError)
+        specify do
+          configuration.send(:ask_salesforce).should be_a(Typhoeus::Response)
         end
 
       end

@@ -1,8 +1,10 @@
 module Salesforce
   class Configuration
 
-    attr_accessor :username, :password, :client_id, :client_secret, :disable_discovery
-    attr_reader :access_token_url, :grant_type, :service_path, :access_token, :instance_url
+    attr_accessor :username, :password, :client_id,
+      :client_secret, :disable_discovery, :use_defaults,
+      :access_token, :instance_url
+    attr_reader :access_token_url, :grant_type, :service_path
 
     def initialize
       @access_token_url = 'https://login.salesforce.com/services/oauth2/token'
@@ -65,10 +67,12 @@ module Salesforce
     end
 
     def ask_salesforce
-      @response = Typhoeus::Request.post(
-        access_token_url,
-        :params => credentials
-      )
+      request = Typhoeus::Request.new(
+        access_token_url, :params => credentials, :method => :post)
+      hydra = Typhoeus::Hydra.hydra
+      hydra.queue(request)
+      hydra.run
+      @response = request.response
       body = JSON.parse(response.body)
       raise SalesforceError.new("#{body['error']}: #{body['error_description']}") if @response.code != 200
       @access_token = body['access_token']

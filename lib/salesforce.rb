@@ -9,6 +9,7 @@ require 'salesforce/attributes'
 require 'salesforce/configuration'
 require 'salesforce/connection'
 require 'salesforce/description'
+require 'salesforce/extras'
 require 'salesforce/fields'
 require 'salesforce/persistence'
 require 'salesforce/serialization'
@@ -31,4 +32,5 @@ module Salesforce #:nodoc
   def self.configuration
     @configuration ||= Configuration.new
   end
+
 end
