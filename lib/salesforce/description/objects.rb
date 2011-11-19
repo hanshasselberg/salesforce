@@ -7,6 +7,7 @@ module Salesforce
       end
 
       def self.description
+        return default_description if Salesforce.configuration.use_defaults
         @description ||= Connection.request(@url)
       end
 

@@ -15,6 +15,12 @@ describe Salesforce::Configuration do
 
   end
 
+  describe '#use_defaults' do
+
+    specify { configuration.should respond_to(:use_defaults) }
+
+  end
+
   describe '#service_path' do
 
     specify { configuration.service_path.should be_a(String) }
