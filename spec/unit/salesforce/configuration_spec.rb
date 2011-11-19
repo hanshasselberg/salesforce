@@ -46,27 +46,6 @@ describe Salesforce::Configuration do
 
       end
 
-      context 'given invalid credentials' do
-
-        before do
-          hydra = Typhoeus::Hydra.hydra
-          response = Typhoeus::Response.new(
-            :code => 410, :headers => "",
-            :body => '',
-            :time => 0.3
-          )
-          hydra.stub(
-            :post,
-            Salesforce.configuration.access_token_url
-          ).and_return(response)
-        end
-
-        it 'fails' do
-          expect { configuration.send(:ask_salesforce) }.to raise_error(Salesforce::SalesforceError)
-        end
-
-      end
-
     end
 
   end

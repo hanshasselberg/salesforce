@@ -23,11 +23,6 @@ describe Salesforce::Fields do
     context 'fields are discovered' do
 
       before do
-        desc = Salesforce::Description::Fields.send(:default_description, klass.ressource_name)
-        Salesforce::Description::Fields.instance_variable_set(
-          :@description,
-          klass.ressource_name => desc
-        )
         klass.discovery
       end
 
