@@ -17,7 +17,7 @@ module Salesforce
     module ClassMethods
 
       def discovery
-        Description::Fields.description(self.ressource_name).each do |desc|
+        Description::Fields.fields_description_for(self.ressource_name).each do |desc|
           field(desc)
         end
       end

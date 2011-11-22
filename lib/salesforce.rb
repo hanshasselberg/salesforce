@@ -12,6 +12,7 @@ require 'salesforce/description'
 require 'salesforce/extras'
 require 'salesforce/fields'
 require 'salesforce/persistence'
+require 'salesforce/finder'
 require 'salesforce/serialization'
 require 'salesforce/ressource'
 

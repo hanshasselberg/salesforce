@@ -6,6 +6,7 @@ module Salesforce
     include Salesforce::Attributes
     include Salesforce::Extras
     include Salesforce::Persistence
+    include Salesforce::Finder
     include Salesforce::Fields
     include Salesforce::Serialization
 

@@ -12,9 +12,15 @@ module Salesforce
       end
 
       def self.object_url(ressource_name, id)
-        description['sobjects'].
-          find{ |o| o['name'] == ressource_name }['urls']['rowTemplate'].
-          gsub('{ID}', id)
+        description_for(ressource_name)['urls']['rowTemplate'].gsub('{ID}', id)
+      end
+
+      def self.describe_url(ressource_name)
+        description_for(ressource_name)['urls']['describe']
+      end
+
+      def self.description_for(ressource_name)
+        description['sobjects'].find{ |o| o['name'] == ressource_name }
       end
 
       private

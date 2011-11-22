@@ -3,13 +3,13 @@ module Salesforce
     module Fields
 
       def self.url(ressource_name)
-        "/services/data/#{ApiVersions.latest}/sobjects/#{ressource_name}/describe"
+        Objects.describe_url(ressource_name)
       end
 
-      def self.description(ressource_name)
+      def self.description_for(ressource_name)
         return default_description[ressource_name] if Salesforce.configuration.use_defaults
 
-        @description ||= {} #init
+        @description ||= {} #ini
         desc = @description[ressource_name]
         return desc if desc # early return
 
@@ -18,20 +18,47 @@ module Salesforce
         )
       end
 
+      def self.fields_description_for(ressource_name)
+        description_for(ressource_name)["fields"]
+      end
+
       private
 
       def self.default_description
         { 'Account' =>
-          [
-             {
-                "length" => 18,
-                "name" => "Id",
-                "type" => "id",
-                "defaultValue" => { "value" => nil },
-                "updateable" => false,
-                "label" => "Account ID"
-             }
-          ]
+          {
+            "name" => "Account",
+            "fields" =>
+            [
+              {
+                  "length" => 18,
+                  "name" => "Id",
+                  "type" => "id",
+                  "defaultValue" => { "value" => nil },
+                  "updateable" => false,
+                  "label" => "Account ID"
+              }
+            ],
+            "updateable" => true,
+            "label" => "Account",
+            "keyPrefix" => "001",
+            "custom" => false,
+            "urls" =>
+            {
+              "uiEditTemplate" => "https://na1.salesforce.com/{ID}/e",
+              "sobject" => "/services/data/v20.0/sobjects/Account",
+              "uiDetailTemplate" => "https://na1.salesforce.com/{ID}"
+            },
+            "childRelationships" =>
+            [
+              {
+                "field" => "ParentId",
+                "deprecatedAndHidden" => false
+              },
+            ],
+            "createable" => true,
+            "customSetting" => false
+          }
         }
       end
 
